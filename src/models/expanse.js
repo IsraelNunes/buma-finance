@@ -1,5 +1,5 @@
 const  Sequelize  = require('sequelize');
-const database = require('../connectionDB');
+const database = require('../database');
 
 const expanse = database.define('expanse', {
     id: {
