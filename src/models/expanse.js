@@ -1,17 +1,34 @@
-const  Sequelize  = require('sequelize');
-const database = require('../database');
-
-const expanse = database.define('expanse', {
-    id: {
-        type: Sequelize.INTEGER,
-        autoIncrement: true,
-        allowNull: false,
-        primaryKey: true
-    },
-    expanse_name: {
-        type: Sequelize.STRING,
-        allowNull: false
+'use strict';
+const {
+  Model
+} = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+  class Expanse extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      // define association here
     }
-})
-
-module.exports = expanse;
+  }
+  Expanse.init({
+    id: {
+      type: sequelize.INTEGER,
+      allowNull: false,
+      autoIncrement: true
+    },
+    name: DataTypes.STRING,
+    duaDate: DataTypes.DATE,
+    grossValue: DataTypes.FLOAT,
+    discount: DataTypes.FLOAT,
+    paymentStatus: DataTypes.BOOLEAN,
+    fees: DataTypes.FLOAT,
+    recurrent: DataTypes.BOOLEAN
+  }, {
+    sequelize,
+    modelName: 'Expanse',
+  });
+  return Expanse;
+};
