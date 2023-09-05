@@ -19,9 +19,7 @@ const Product = database.define('Product', {
     code: {
         type: DataTypes.STRING,
         allowNull: true
-    }    
+    },
 });
-
-Product.belongsTo(Product_Category);
 
 module.exports = Product;

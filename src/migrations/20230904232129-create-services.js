@@ -1,8 +1,11 @@
 'use strict';
+
+const services_categories = require('../models/services_categories');
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('legalCustomers', {
+    await queryInterface.createTable('Services', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -12,14 +15,19 @@ module.exports = {
       name: {
         type: Sequelize.STRING
       },
-      CPF: {
+      sell_price: {
+        type: Sequelize.FLOAT
+      },
+      code: {
         type: Sequelize.STRING
       },
-      email: {
-        type: Sequelize.STRING
-      },
-      telephone: {
-        type: Sequelize.STRING
+      categoryID: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'Services_Categories',
+          key: 'id'
+        },
       },
       createdAt: {
         allowNull: false,
@@ -32,6 +40,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('legalCustomers');
+    await queryInterface.dropTable('Services');
   }
 };

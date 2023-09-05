@@ -1,20 +1,20 @@
-version: '3'
+version: '3.1'
 
 services:
   db:
     image: mysql:latest
+    restart: always
     environment:
-      MYSQL_DATABASE: buma
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
-      MYSQL_ROOT_PASSWORD: root_password
-    ports:
-      - 3306
+      MYSQL_ROOT_PASSWORD: u7v1p9iB5oGEHSYtG9Pr
 
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin:latest
-    environment:
-      PMA_HOST: db
-      MYSQL_ROOT_PASSWORD: root_password
+    image: phpmyadmin
+    restart: always
     ports:
       - 8080:80
+    environment:
+      PMA_DB: railway
+      PMA_HOST: containers-us-west-115.railway.app
+      PMA_PORT: 7715
+      PMA_USER: root
+      PMA_PASSWORD: u7v1p9iB5oGEHSYtG9Pr
