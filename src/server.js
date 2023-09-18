@@ -1,9 +1,17 @@
-const express = require('express')
-const app = express()
+const express = require('express');
+const mysql = require('mysql2');
+const cors = require('cors');
+const db = require('./db')
 const port = 3000
-app.get('/', (req, res) => {
-  res.send('Hello World!')
+
+const app=express();
+
+db.query("SELECT 1")
+.then(() => {
+  console.log('Db connection success');
+  app.listen(port, 
+    ()=> console.log(`Server is running on ${port}`))  
 })
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+.catch(err => console.log('Db connection fail'))
+
+
