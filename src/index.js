@@ -13,10 +13,10 @@ const routeProduct_Category = require('./router/product_category.router');
 app.use(bodyParser.json());
 
 app.post('/product_category', Product_Category.createProduct_Category);
-app.delete('/product_category:id', Product_Category.deleteProduct_category);
-app.put('/product_category:id', Product_Category.updateProduct_category);
+app.delete('/product_category/:id', Product_Category.deleteProduct_category);
+app.put('/product_category/:id', Product_Category.updateProduct_category);
 app.get('/product_category', Product_Category.getAllProduct_Categories);
-app.get('/product_category:id', Product_Category.getProduct_CategoryByID);
+app.get('/product_category/:id', Product_Category.getProduct_CategoryByID);
 
 app.use('/', routeProduct_Category);
 
