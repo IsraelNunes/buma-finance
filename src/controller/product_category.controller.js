@@ -5,8 +5,8 @@ const Product_Category = db.Product_Category;
 
 exports.createProduct_Category = (req, res) => {
     Product_Category.create(req.body)
-        .then(Product_Category => {
-            res.status(201).json(Product_Category);
+        .then((categories) => {
+            res.status(201).json(categories);
         })
         .catch(error => {
             res.status(500).json({error: 'Error creating Product Category'});
@@ -17,8 +17,8 @@ exports.createProduct_Category = (req, res) => {
 
 exports.getAllProduct_Categories = (req, res) => {
     Product_Category.findAll()
-        .then(Product_Category => {
-            res.status(200).json(Product_Category);
+        .then(categories => {
+            res.status(200).json(categories);
         })
         .catch(error => {
             res.status(500).json({error: "Error retrieving product categories"})
@@ -29,7 +29,7 @@ exports.getProduct_CategoryByID = (req, res) => {
     const id = req.params.id;
   
     Product_Category.findByPk(id)
-      .then(category => {
+      .then((category) => {
         if (!category) {
           return res.status(404).json({ error: 'Product Category not found' });
         }
@@ -43,16 +43,31 @@ exports.getProduct_CategoryByID = (req, res) => {
 
 //update
 
-exports.updateProduct_category = (req, res) => {
+exports.updateProduct_Category = (req, res) => {
     const id = req.params.id;
-    Product_Category.update({where: {id: id} })
-        .then(() => {
-            res.status(204).json({ message: 'Product category deleted'});
-        })
-        .catch(error => {
-            res.status(500).json({error: "Error updating product category"});
-        })
-}
+  
+    Product_Category.findByPk(id)
+      .then(category => {
+        if (!category) {
+          return res.status(404).json({ error: 'Product Category not found' });
+        }
+  
+        // Update category data based on the request body
+        category
+          .update(req.body)
+          .then(updatedCategory => {
+            res.status(200).json(updatedCategory);
+          })
+          .catch(error => {
+            console.error(error);
+            res.status(500).json({ error: 'Error updating product category' });
+          });
+      })
+      .catch(error => {
+        console.error(error);
+        res.status(500).json({ error: 'Error retrieving product category' });
+      });
+  };
 
 //delete
 
