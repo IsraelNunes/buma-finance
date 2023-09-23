@@ -6,7 +6,7 @@
   "author": "Israel <israel.nunes74@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "chokidar_usepolling=true nodemon src/index.js"
+    "start": "nodemon src/index.js"
   },
   "dependencies": {
     "body-parser": "^1.20.2",

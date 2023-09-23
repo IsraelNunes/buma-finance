@@ -1,8 +1,8 @@
 module.exports = {
     username: "root",
-    password: "u7v1p9iB5oGEHSYtG9Pr",
+    password: "vgcb8iKaZ8wnYYpYWU2G",
     database: "railway",
-    host: "containers-us-west-115.railway.app",
+    host: "containers-us-west-84.railway.app",
     dialect: "mysql",
-    port: "7715"
+    port: "6145"
   }
