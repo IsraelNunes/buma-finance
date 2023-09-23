@@ -24,6 +24,10 @@ app.get('/product_category/:id', Product_Category.getProduct_CategoryByID);
 
 //Service category routes
 app.post('/service_category', Service_Category.createService_Category);
+app.delete('/servicecategory/:id', Service_Category.createService_Category);
+app.put('/service_category/:id', Service_Category.updateService_Category);
+app.get('/service_category', Service_Category.getAllService_Category);
+app.get('/service_category/:id', Service_Category.getProduct_CategoryByID);
 
 app.use('/', routeProduct_Category);
 app.use('/', routerService_Category);
