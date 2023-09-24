@@ -26,7 +26,7 @@ db.Product.belongsTo(db.Product_Category, {foreignKey: "productID"});
 db.Service_Category.hasMany(db.Service, {foreignKey: "serviceID"});
 db.Service.belongsTo(db.Service_Category, {foreignKey: "serviceID"});
 
-db.Roles.hasMany(db.Employees);
+db.Roles.hasMany(db.Employees, {foreignKey: "role"});
 db.Employees.belongsTo(db.Roles, {foreignKey: "role"});
 
 module.exports = db;
