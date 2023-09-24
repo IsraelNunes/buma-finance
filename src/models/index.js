@@ -16,9 +16,8 @@ db.Product_Category = require('./product_categories')(sequelize, Sequelize);
 db.Service_Category = require('./product_categories')(sequelize, Sequelize);
 db.Product = require('./products')(sequelize, Sequelize);
 
-db.Product.associate({
-    Product_Category: db.Product_Category
-})
+db.Product_Category.hasMany(db.Product);
+db.Product.belongsTo(db.Product_Category, {foreignKey: "productID"});
 
 module.exports = db;
 

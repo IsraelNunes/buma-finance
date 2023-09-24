@@ -25,8 +25,6 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Products',
   });
-  Products.associate = function(models){
-    Products.belongsTo(Product_categories, {foreignKey: "productID", as: "Product_Categories"});
-  }
+
   return Products;
 };

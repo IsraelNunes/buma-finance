@@ -35,7 +35,7 @@ exports.getProduct_CategoryByID = (req, res) => {
         }
         res.status(200).json(categories);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
         res.status(500).json({ error: 'Error retrieving product category' });
       });
@@ -55,15 +55,15 @@ exports.updateProduct_Category = (req, res) => {
         // Update category data based on the request body
         categories
           .update(req.body)
-          .then(updatedCategory => {
+          .then((updatedCategory) => {
             res.status(200).json(updatedCategory);
           })
-          .catch(error => {
+          .catch((error) => {
             console.error(error);
             res.status(500).json({ error: 'Error updating product category' });
           });
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
         res.status(500).json({ error: 'Error retrieving product category' });
       });
@@ -77,7 +77,7 @@ exports.deleteProduct_category = (req, res) => {
         .then(() => {
             res.status(204).json({ message: 'Product category deleted'});
         })
-        .catch(error => {
+        .catch((error) => {
             res.status(500).json({error: "Error deleting product category"});
         })
 }

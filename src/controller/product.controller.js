@@ -23,3 +23,18 @@ exports.getAllProduct = (req, res) => {
             res.status(500).json({error: 'Error getting products'});
         })
 }
+
+exports.getProductByID = (req, res) => {
+    const id = req.params.id;
+
+    Product.findByPk(id)
+        .then((products) => {
+            if (!products) {
+                res.send(404).json({error: "Product not found"});
+            }
+            res.status(200).json(products);
+        })
+        .catch((error) => {
+            res.status(500).json({error: "Error trying to retrieve Produc"});
+        })
+}
