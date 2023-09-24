@@ -1,5 +1,4 @@
 const db = require('../models/');
-const products = require('../models/products');
 const Service_Category = db.Service_Category
 
 //create

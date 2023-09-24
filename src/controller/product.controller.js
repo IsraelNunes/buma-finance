@@ -1,13 +1,9 @@
-const { where } = require("sequelize");
 const db = require("../models");
-const products = require("../models/products");
 const Product = db.Product;
 
 exports.createProduct = (req, res) => {
-    console.log(req.body);
     Product.create(req.body)
         .then((products) => {
-            console.log(products)
             res.status(201).json(products);
         })
         .catch((error) => {
