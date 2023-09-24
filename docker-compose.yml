@@ -5,7 +5,7 @@ services:
     image: mysql:latest
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: u7v1p9iB5oGEHSYtG9Pr
+      MYSQL_ROOT_PASSWORD: vgcb8iKaZ8wnYYpYWU2G
 
   phpmyadmin:
     image: phpmyadmin
@@ -14,7 +14,7 @@ services:
       - 8080:80
     environment:
       PMA_DB: railway
-      PMA_HOST: containers-us-west-115.railway.app
-      PMA_PORT: 7715
+      PMA_HOST: containers-us-west-84.railway.app
+      PMA_PORT: 6145
       PMA_USER: root
-      PMA_PASSWORD: u7v1p9iB5oGEHSYtG9Pr
+      PMA_PASSWORD: vgcb8iKaZ8wnYYpYWU2G
