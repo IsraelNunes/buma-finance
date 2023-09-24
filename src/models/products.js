@@ -2,7 +2,7 @@
 const {
   Model
 } = require('sequelize');
-const product_categories = require('./product_categories');
+const Product_categories = require('./product_categories');
 module.exports = (sequelize, DataTypes) => {
   class Products extends Model {
     /**
@@ -18,13 +18,13 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     sell_price: DataTypes.FLOAT,
     code: DataTypes.STRING,
-    product_category: DataTypes.INTEGER
+    product_category: DataTypes.INTEGER,
+    createdAt: { type: DataTypes.DATE, allowNull: true, defaultValue: sequelize.literal('CURRENT_TIMESTAMP') },
+
   }, {
     sequelize,
     modelName: 'Products',
   });
-  Products.associate = function(models){
-    Products.belongsTo(Product_Categories, {foreignKey: "productID", as: "Product_Categories"});
-  }
+
   return Products;
 };

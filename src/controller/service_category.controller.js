@@ -1,4 +1,5 @@
 const db = require('../models/');
+const products = require('../models/products');
 const Service_Category = db.Service_Category
 
 //create
@@ -13,71 +14,63 @@ exports.createService_Category = (req, res) => {
         });
 };
 
-//retrieve
-
 exports.getAllService_Category = (req, res) => {
-    Service_Category.findAll()
-        .then(services => {
+    Service_Category.findAll() 
+        .then((services) => {
             res.status(200).json(services);
         })
-        .catch(error => {
-            res.status(500).json({error: "Error retrieving Service services"})
-        });
-};
+        .catch((error) => {
+            res.status(500).json({error: "Could not retrieve services"});
+        })
+}
 
 exports.getService_CategoryByID = (req, res) => {
     const id = req.params.id;
-  
-    Service_Category.findByPk(id)
-      .then((category) => {
-        if (!category) {
-          return res.status(404).json({ error: 'Service Category not found' });
-        }
-        res.status(200).json(category);
-      })
-      .catch(error => {
-        console.error(error);
-        res.status(500).json({ error: 'Error retrieving Service category' });
-      });
-  };
 
-//update
+    Service_Category.findByPk(id)
+        .then((products) => {
+           if (!products) {
+            res.status(404).json({error: "Product not found"});
+           } 
+           res.status(200).json(products);
+        })
+        .catch((error) => {
+            res.status(500).json({error: "Error retriving service"});
+        })
+}
 
 exports.updateService_Category = (req, res) => {
     const id = req.params.id;
-  
+
     Service_Category.findByPk(id)
-      .then(category => {
-        if (!category) {
-          return res.status(404).json({ error: 'Service Category not found' });
-        }
-  
-        // Update category data based on the request body
-        category
-          .update(req.body)
-          .then(updatedCategory => {
-            res.status(200).json(updatedCategory);
-          })
-          .catch(error => {
-            console.error(error);
-            res.status(500).json({ error: 'Error updating Service category' });
-          });
-      })
-      .catch(error => {
-        console.error(error);
-        res.status(500).json({ error: 'Error retrieving Service category' });
-      });
-  };
-
-//delete
-
-exports.deleteService_category = (req, res) => {
-    const id = req.params.id;
-    Service_Category.destroy({where: {id: id} })
-        .then(() => {
-            res.status(204).json({ message: 'Service category deleted'});
+        .then((products) => {
+            if(!products) {
+                res.status(404).json({error: "Service not found"})
+            }
+            products
+            .update(req.body)
+            .then((updatedProduct) => {
+                res.status(200).json(updatedProduct);
+            })
+            .catch((error) => {
+                res.send(500).json({error: "Error updatating service category"})
+            })
         })
-        .catch(error => {
-            res.status(500).json({error: "Error deleting Service category"});
+        .catch((error) => {
+            res.send(500).json({error: "Error retriveing service category"})
+        })
+
+
+}
+
+exports.deleteService_Category = (req, res) => {
+    const id = req.params.id;
+
+    Service_Category.destroy({where: {id: id}})
+        .then(() => {
+            res.status(204).json({ message: "Service category deleted"});
+        })
+        .catch((error) => {
+            res.status(500).json({error: "Error deleting service category"});
         })
 }

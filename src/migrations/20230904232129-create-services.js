@@ -21,7 +21,7 @@ module.exports = {
       code: {
         type: Sequelize.STRING
       },
-      categoryID: {
+      service: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {

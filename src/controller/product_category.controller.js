@@ -8,7 +8,7 @@ exports.createProduct_Category = (req, res) => {
         .then((categories) => {
             res.status(201).json(categories);
         })
-        .catch(error => {
+        .catch((error) => {
             res.status(500).json({error: 'Error creating Product Category'});
         });
 };
@@ -17,7 +17,7 @@ exports.createProduct_Category = (req, res) => {
 
 exports.getAllProduct_Categories = (req, res) => {
     Product_Category.findAll()
-        .then(categories => {
+        .then((categories) => {
             res.status(200).json(categories);
         })
         .catch(error => {
@@ -29,13 +29,13 @@ exports.getProduct_CategoryByID = (req, res) => {
     const id = req.params.id;
   
     Product_Category.findByPk(id)
-      .then((category) => {
-        if (!category) {
+      .then((categories) => {
+        if (!categories) {
           return res.status(404).json({ error: 'Product Category not found' });
         }
-        res.status(200).json(category);
+        res.status(200).json(categories);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
         res.status(500).json({ error: 'Error retrieving product category' });
       });
@@ -47,23 +47,23 @@ exports.updateProduct_Category = (req, res) => {
     const id = req.params.id;
   
     Product_Category.findByPk(id)
-      .then(category => {
-        if (!category) {
+      .then((categories) => {
+        if (!categories) {
           return res.status(404).json({ error: 'Product Category not found' });
         }
   
         // Update category data based on the request body
-        category
+        categories
           .update(req.body)
-          .then(updatedCategory => {
+          .then((updatedCategory) => {
             res.status(200).json(updatedCategory);
           })
-          .catch(error => {
+          .catch((error) => {
             console.error(error);
             res.status(500).json({ error: 'Error updating product category' });
           });
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
         res.status(500).json({ error: 'Error retrieving product category' });
       });
@@ -77,7 +77,7 @@ exports.deleteProduct_category = (req, res) => {
         .then(() => {
             res.status(204).json({ message: 'Product category deleted'});
         })
-        .catch(error => {
+        .catch((error) => {
             res.status(500).json({error: "Error deleting product category"});
         })
 }
