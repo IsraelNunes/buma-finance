@@ -7,11 +7,12 @@ exports.createProduct = (req, res) => {
     console.log(req.body);
     Product.create(req.body)
         .then((products) => {
+            console.log(products)
             res.status(201).json(products);
         })
-        .catch(error => {
+        .catch((error) => {
             console.log(error);
-            res.status(500).json({error: 'Error creating Product Category'});
+            res.status(500).json({error: 'Error creating Product'});
         });
 };
 

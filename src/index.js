@@ -9,6 +9,7 @@ const port = 3000;
 const routerService_Category = require("./router/service.category.router");
 const routerProduct_Category = require('./router/product_category.router');
 const routerProduct = require("./router/product.router");
+const routerService = require("./router/service.router");
 
 
 
@@ -20,6 +21,7 @@ app.use(bodyParser.json());
 app.use('/', routerProduct_Category);
 app.use('/', routerService_Category);
 app.use('/', routerProduct);
+app.use('/', routerService);
 
 
 db.sequelize.sync().then(() => {
