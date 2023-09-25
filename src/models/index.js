@@ -20,6 +20,7 @@ db.Roles = require('./roles')(sequelize, Sequelize);
 db.Employees = require('./employees')(sequelize, Sequelize);
 db.LegalCustomer = require('./legalcustomers')(sequelize, Sequelize);
 db.PhysicalCustomer = require('./physicalcustomer')(sequelize, Sequelize);
+db.Revenues = require('./revenues')(sequelize, Sequelize);
 
 // Associations
 db.Product_Category.hasMany(db.Product, {foreignKey: "productID"});
@@ -30,6 +31,21 @@ db.Service.belongsTo(db.Service_Category, {foreignKey: "serviceID"});
 
 db.Roles.hasMany(db.Employees, {foreignKey: "role"});
 db.Employees.belongsTo(db.Roles, {foreignKey: "role"});
+
+//Revenue associations
+
+db.Revenues.hasMany(db.LegalCustomer, {foreignKey: "legalcustomer"});
+db.LegalCustomer.belongsTo(db.Revenues, {foreignKey: "legalcustomer"});
+
+db.Revenues.hasMany(db.PhysicalCustomer, {foreignKey: "physicalcustomer"});
+db.PhysicalCustomer.belongsTo(db.Revenues, {foreignKey: "physicalcustomer"});
+
+db.Revenues.hasMany(db.Product, {foreignKey: "product"});
+db.Product.belongsTo(db.Revenues, {foreignKey: "product"});
+
+db.Revenues.hasMany(db.Service, {foreignKey: "service"});
+db.Service.belongsTo(db.Revenues, {foreignKey: "service"});
+
 
 module.exports = db;
 
