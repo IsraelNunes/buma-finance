@@ -18,6 +18,8 @@ db.Product = require('./products')(sequelize, Sequelize);
 db.Service = require('./services')(sequelize, Sequelize);
 db.Roles = require('./roles')(sequelize, Sequelize);
 db.Employees = require('./employees')(sequelize, Sequelize);
+db.LegalCustomer = require('./legalcustomers')(sequelize, Sequelize);
+db.PhysicalCustomer = require('./physicalcustomer')(sequelize, Sequelize);
 
 // Associations
 db.Product_Category.hasMany(db.Product, {foreignKey: "productID"});
