@@ -12,6 +12,8 @@ const routerProduct = require("./router/product.router");
 const routerService = require("./router/service.router");
 const routerRoles = require("./router/roles.router");
 const routerEmployees = require("./router/employees.router");
+const routerLegalCustomer = require('./router/legalcustomer.router');
+const routerPhysicalCustomer = require('./router/physicalcustomer.router');
 
 
 
@@ -26,7 +28,8 @@ app.use('/', routerProduct);
 app.use('/', routerService);
 app.use('/', routerRoles);
 app.use('/', routerEmployees);
-
+app.use('/', routerLegalCustomer);
+app.use('/', routerPhysicalCustomer);
 
 db.sequelize.sync().then(() => {
     app.listen(port, () => {
