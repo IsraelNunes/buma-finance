@@ -45,7 +45,7 @@ exports.updateRole = (req, res) => {
                 res.status(404).json({error: "Role not found"})
             }
             roles.update(req.body)
-                then((updatedRole) => {
+                .then((updatedRole) => {
                     res.status(200).json(updatedRole);
                 })
                 .catch((error) => {
@@ -65,6 +65,6 @@ exports.deleteRole = (req, res) => {
             res.status(200).json({message: "role was deleted"});
         })
         .catch((error) => {
-            res.status(500).json({error: "error trying to delete role"});
+            res.status(500).json({error: "error trying to delete role"})
         })
 }
