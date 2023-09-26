@@ -1,8 +1,19 @@
+require('dotenv').config()
+
+const userdb = process.env.USER_DB;
+const database = process.env.DATABASE;
+const password = process.env.PASSWORD;
+const host = process.env.HOST;
+const port = process.env.PORT;
+
+
 module.exports = {
-    username: "root",
-    password: "vgcb8iKaZ8wnYYpYWU2G",
-    database: "railway",
-    host: "containers-us-west-84.railway.app",
+    username: userdb,
+    password: password,
+    database: database,
+    host: host,
     dialect: "mysql",
-    port: "6145"
+    port: port
   }
+
+  console.log(userdb)
