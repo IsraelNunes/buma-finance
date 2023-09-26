@@ -21,7 +21,7 @@ module.exports = {
       code: {
         type: Sequelize.STRING
       },
-      service: {
+      serviceID: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {

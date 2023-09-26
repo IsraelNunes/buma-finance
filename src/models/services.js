@@ -17,13 +17,12 @@ module.exports = (sequelize, DataTypes) => {
   Services.init({
     name: DataTypes.STRING,
     sell_price: DataTypes.FLOAT,
-    code: DataTypes.STRING
+    code: DataTypes.STRING,
+    serviceID: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'Services',
   });
-  Services.associate = function(models) {
-    Services.belongsTo(Services_Categories, {foreignKey: 'categoryID', as: 'Service_Categories'});
-  }
+
   return Services;
 };
