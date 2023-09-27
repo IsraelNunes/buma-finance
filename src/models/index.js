@@ -40,7 +40,11 @@ db.LegalCustomer.belongsTo(db.Revenues, {foreignKey: "legalcustomer"});
 db.Revenues.hasMany(db.PhysicalCustomer, {foreignKey: "physicalcustomer"});
 db.PhysicalCustomer.belongsTo(db.Revenues, {foreignKey: "physicalcustomer"});
 
+db.Revenues.hasMany(db.Product, {foreignKey: "product"});
+db.Product.belongsTo(db.Revenues, {foreignKey: "product"});
 
+db.Revenues.hasMany(db.Service, {foreignKey: "service"});
+db.Service.belongsTo(db.Revenues, {foreignKey: "service"});
 
 
 module.exports = db;
