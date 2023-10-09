@@ -47,7 +47,7 @@ exports.updateService = (req, res) => {
             if(!services) {
                 res.send(404).json({error: "Service not found"});
             }
-            Services
+            services
             .update(req.body)
             .then((updatedService) => {
                 res.status(200).json(updatedService)
@@ -57,6 +57,7 @@ exports.updateService = (req, res) => {
             })
         })
         .catch((error) => {
+            console.log(error);
             res.status(500).json({error: "Error trying to retrive Service"});
         })    
 }
