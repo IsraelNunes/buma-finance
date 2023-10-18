@@ -4,7 +4,7 @@ const db = require('./models');
 var cors = require('cors');
 var app = express();
 app.use(cors());
-const port = 3000;
+const port = 8000;
 
 //const router = require('./routes/index')
 //routers import 

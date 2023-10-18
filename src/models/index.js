@@ -34,11 +34,7 @@ db.Employees.belongsTo(db.Roles, {foreignKey: "role"});
 
 //Revenue associations
 
-db.Revenues.hasMany(db.LegalCustomer, {foreignKey: "legalcustomer"});
-db.LegalCustomer.belongsTo(db.Revenues, {foreignKey: "legalcustomer"});
 
-db.Revenues.hasMany(db.PhysicalCustomer, {foreignKey: "physicalcustomer"});
-db.PhysicalCustomer.belongsTo(db.Revenues, {foreignKey: "physicalcustomer"});
 
 
 
