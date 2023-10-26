@@ -29,12 +29,13 @@ exports.getLegalCustomersByID = (req, res) => {
     LegalCustomers.findByPk(id)
         .then((legalcustomers) => {
             if (!legalcustomers) {
-                res.send(404).json({error: "legal customer not found"});
+                return res.status(404).json({error: "legal customer not found"});
             }
             res.status(200).json(legalcustomers);
         })
         .catch((error) => {
-            res.status(500).json({error: "Error trying to retrieve legal customer"});
+            console.log(error)
+            res.send(500).json({error: "Error trying to retrieve legal customer"});
         })
 }
 
