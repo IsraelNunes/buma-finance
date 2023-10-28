@@ -17,6 +17,7 @@ const routerEmployees = require("./router/employees.router");
 const routerLegalCustomer = require('./router/legalcustomer.router');
 const routerPhysicalCustomer = require('./router/physicalcustomer.router');
 const routerRevenue = require('./router/revenue.router');
+const routerExpanse = require('./router/expanse.router');
 
 
 
@@ -34,6 +35,7 @@ app.use('/', routerEmployees);
 app.use('/', routerLegalCustomer);
 app.use('/', routerPhysicalCustomer);
 app.use('/', routerRevenue);
+app.use('/', routerExpanse);
 db.sequelize.sync().then(() => {
     app.listen(port, () => {
         console.log(`Server is running on port ${port}`);
