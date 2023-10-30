@@ -9,12 +9,12 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      employees: {
+      employee: {
         type: Sequelize.INTEGER,
         references: {
           model: {
-            tableName: Employees,
-            key: id
+            tableName: "Employees",
+            key: "id",
           },
         },
       },
