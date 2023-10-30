@@ -1,5 +1,4 @@
 const db = require("../models");
-const expanse = require("../models/expanse");
 const Expanse = db.Expanse;
 
 exports.createExpanse = (req, res) => {
