@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     competence: DataTypes.DATE,
     gross_value: DataTypes.FLOAT,
-    discoiunt: DataTypes.FLOAT,
+    discount: DataTypes.FLOAT,
     payment_type: DataTypes.STRING,
     fees: DataTypes.FLOAT,
     bank_account: DataTypes.STRING,
