@@ -27,8 +27,11 @@ module.exports = {
       gross_value: {
         type: Sequelize.FLOAT
       },
-      discoiunt: {
+      discount: {
         type: Sequelize.FLOAT
+      },
+      installments:{
+        type: Sequelize.INTEGER
       },
       payment_type: {
         type: Sequelize.STRING

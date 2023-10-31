@@ -12,7 +12,6 @@ exports.createInstallment = (req, res) => {
       });
   };
   
-  // Retrieve all installments
   exports.getAllInstallments = (req, res) => {
     Installments.findAll()
       .then(installments => {
@@ -24,7 +23,6 @@ exports.createInstallment = (req, res) => {
       });
   };
   
-  // Retrieve an installment by ID
   exports.getInstallmentById = (req, res) => {
     const installmentId = req.params.id;
   
@@ -41,7 +39,6 @@ exports.createInstallment = (req, res) => {
       });
   };
   
-  // Update an installment by ID
   exports.updateInstallment = (req, res) => {
     const installmentId = req.params.id;
   
@@ -67,7 +64,6 @@ exports.createInstallment = (req, res) => {
       });
   };
   
-  // Delete an installment by ID
   exports.deleteInstallment = (req, res) => {
     const installmentId = req.params.id;
   
@@ -80,7 +76,7 @@ exports.createInstallment = (req, res) => {
         installment
           .destroy()
           .then(() => {
-            res.status(204).json(); // 204 No Content response for successful deletion
+            res.status(204).json({message: "Installment deleted"}); 
           })
           .catch(error => {
             console.error(error);

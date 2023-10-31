@@ -23,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     payment_status: DataTypes.BOOLEAN,
     legalcustomer: DataTypes.INTEGER,
     physicalcustomer: DataTypes.INTEGER,
+    installments: DataTypes.INTEGER,
     due_date: DataTypes.DATE,
     recurrent: DataTypes.BOOLEAN
   }, {

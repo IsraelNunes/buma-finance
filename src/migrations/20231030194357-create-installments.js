@@ -2,14 +2,14 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Istallments', {
+    await queryInterface.createTable('Installments', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      Expanse: {
+      expanse: {
         type: Sequelize.INTEGER,
         references: {
           model: {
@@ -18,7 +18,7 @@ module.exports = {
           },
         },
       },
-      Revenue: {
+      revenue: {
         type: Sequelize.INTEGER,
         references: {
           model: {
@@ -26,6 +26,9 @@ module.exports = {
             key: "id"
           },
         },
+      },
+      installment: {
+        type: Sequelize.INTEGER
       },
       date: {
         type: Sequelize.DATE
@@ -44,6 +47,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Istallments');
+    await queryInterface.dropTable('Installments');
   }
 };
