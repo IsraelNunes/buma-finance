@@ -1,9 +1,14 @@
 const db = require("../models");
 const Expanse = db.Expanse;
+const Installments = db.Installments;
 
 exports.createExpanse = (req, res) => {
     Expanse.create(req.body)
         .then((expanse)=>{
+            for (let index = 0; index < expanse.id; index++) {
+                Installments.create({expanse: expanse.id, installment: expanse.installment, date: expanse.competence});
+                
+            }
             res.status(201).json(expanse)
         })
         .catch((error)=>{

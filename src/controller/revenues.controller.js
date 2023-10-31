@@ -1,10 +1,15 @@
 const db = require("../models");
 const Revenues = db.Revenues;
+const Installments = db.Installments;
 
 exports.createRevenue = (req, res) => {
     Revenues.create(req.body)
         .then((revenues) => {
-            console.log(revenues)
+
+            for (let index = 0; index < revenues.id; index++) {
+                Installments.create({revenue: revenues.id, installment: revenues.installment, date: revenues.due_date});
+                
+            }
             res.status(201).json(revenues);
         })
         .catch((error) => {
