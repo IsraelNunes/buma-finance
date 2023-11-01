@@ -11,7 +11,7 @@ exports.createRevenue = (req, res) => {
                 return date;
               }              
 
-            for (let index = 0; index <= revenues.id; index++) {
+            for (let index = 0; index < revenues.installments; index++) {
                 const date = new Date(revenues.due_date);
                 const newDate = addMonths(date, index);
                 Installments.create({revenue: revenues.id, installment: revenues.installment, date: newDate, status: revenues.status});
@@ -82,5 +82,22 @@ exports.deleteRevenue = (req, res) => {
         })
         .catch((error) => {
             res.status(500).json({message: "Error deleting Revenue"})
+        })
+}
+
+exports.getInstallments = (req, res) => {
+    const id = req.params.id;
+
+    Installments.findAll({
+        where: {
+            revenue: id,
+        }
+    })
+        .then((installments) => {
+            res.status(200).json(installments);
+        })
+        .catch((error) => {
+            res.status(500).json({error: 'Error getting Revenue'});
+            console.log(error)
         })
 }
