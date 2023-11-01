@@ -5,9 +5,16 @@ const Installments = db.Installments;
 exports.createRevenue = (req, res) => {
     Revenues.create(req.body)
         .then((revenues) => {
+            function addMonths(date, months) {
+                date.setMonth(date.getMonth() + months);
+              
+                return date;
+              }              
 
-            for (let index = 0; index < revenues.id; index++) {
-                Installments.create({revenue: revenues.id, installment: revenues.installment, date: revenues.due_date});
+            for (let index = 0; index <= revenues.id; index++) {
+                const date = new Date(revenues.due_date);
+                const newDate = addMonths(date, index);
+                Installments.create({revenue: revenues.id, installment: revenues.installment, date: newDate, status: revenues.status});
                 
             }
             res.status(201).json(revenues);
