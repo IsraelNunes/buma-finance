@@ -34,8 +34,9 @@ db.Service.belongsTo(db.Service_Category, {foreignKey: "serviceID"});
 db.Roles.hasMany(db.Employees, {foreignKey: "role"});
 db.Employees.belongsTo(db.Roles, {foreignKey: "role"});
 
-//Revenue associations
-
+//Expanse Associations
+db.Expanse.hasMany(db.Employees, {foreignKey: "employees"});
+db.Employees.belongsTo(db.Expanse, {foreignKey: 'employees'});
 
 
 

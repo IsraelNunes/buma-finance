@@ -19,9 +19,11 @@ exports.createExpanse = (req, res) => {
 exports.findAllExpanses = (req, res) => {
     Expanse.findAll()
         .then((expanse)=>{
+            console.log("mama")
             res.status(200).json(expanse)
         })
         .catch((error)=>{
+            console.log(error)
             res.status(500).json({error: "Error retriving expanses"});
         })
 }
