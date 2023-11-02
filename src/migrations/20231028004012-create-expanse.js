@@ -9,15 +9,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      employee: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: {
-            tableName: "Employees",
-            key: "id",
-          },
-        },
-      },
       name: {
         type: Sequelize.STRING
       },

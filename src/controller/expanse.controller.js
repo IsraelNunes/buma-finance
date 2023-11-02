@@ -14,7 +14,7 @@ exports.createExpanse = (req, res) => {
             for (let index = 0; index < expanse.installments; index++) {
                 const date = new Date(expanse.competence);
                 const newDate = addMonths(date, index);
-                Installments.create({expanse: expanse.id, installment: expanse.installment, competence: newDate, status: expanse.status});
+                Installments.create({expanse: expanse.id, installment: expanse.installment, date: newDate, status: expanse.status});
                 
             }
             res.status(201).json(expanse)
@@ -28,7 +28,6 @@ exports.createExpanse = (req, res) => {
 exports.findAllExpanses = (req, res) => {
     Expanse.findAll()
         .then((expanse)=>{
-            console.log("mama")
             res.status(200).json(expanse)
         })
         .catch((error)=>{

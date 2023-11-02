@@ -78,11 +78,6 @@ exports.updateRevenue = (req, res) => {
 exports.deleteRevenue = async (req, res) => {
     const id = req.params.id;
 
-    Revenues.findByPk(id)
-    .then((revenue) => {
-        if(!revenue) {
-            res.send(404).json({error: "Revenue not found"});
-        }
         
     const installments = await Installments.findAll({where: {revenue: id}})
     for (let index = 0; index < installments.length; index++) {
