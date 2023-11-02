@@ -5,13 +5,22 @@ const Installments = db.Installments;
 exports.createExpanse = (req, res) => {
     Expanse.create(req.body)
         .then((expanse)=>{
-            for (let index = 0; index < expanse.id; index++) {
-                Installments.create({expanse: expanse.id, installment: expanse.installment, date: expanse.competence});
+            function addMonths(date, months) {
+                date.setMonth(date.getMonth() + months);
+              
+                return date;
+              }              
+
+            for (let index = 0; index < expanse.installments; index++) {
+                const date = new Date(expanse.competence);
+                const newDate = addMonths(date, index);
+                Installments.create({expanse: expanse.id, installment: expanse.installment, competence: newDate, status: expanse.status});
                 
             }
             res.status(201).json(expanse)
         })
         .catch((error)=>{
+            console.log(error)
             res.status(500).json({error: "Cannot create expanse"});
         });
 }

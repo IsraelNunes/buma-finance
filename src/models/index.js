@@ -35,7 +35,7 @@ db.Roles.hasMany(db.Employees, {foreignKey: "role"});
 db.Employees.belongsTo(db.Roles, {foreignKey: "role"});
 
 //Expanse Associations
-db.Expanse.hasMany(db.Employees, {foreignKey: "employees"});
+db.Expanse.hasOne(db.Employees, {foreignKey: "employees"});
 db.Employees.belongsTo(db.Expanse, {foreignKey: 'employees'});
 
 
