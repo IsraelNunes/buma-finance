@@ -36,19 +36,24 @@ exports.findAllExpanses = (req, res) => {
         })
 }
 
-exports.findOneExpanse = (req, res) => {
-    const id = req.params.id;
 
+exports.findOneExpanse = async (req, res) => {
+    console.log("funsiona")
+    const id = req.params.id;
+    const installments = await Installments.findAll({where: {expanse: id}})
+    console.log("mami")
     Expanse.findByPk(id)
-        .then((expanse)=>{
-            if (!expanse) {
-                res.status(404).json("Cannot find expanse")
+        .then((expanses) => {
+            console.log("mimame")
+            if (!expanses) {
+                console.log("mamei")
+                res.send(404).json({error: "Expanse not found"});
             }
-            res.status(200).json(expanse);
+            res.status(200).json({expanse: expanses, installments: installments});
         })
-        .catch((error)=>{
-            res.status(500).json({error: "Error trying to find expanse"});
-        });
+        .catch((error) => {
+            res.status(500).json({error: "Error trying to retrieve Expanse"});
+        })
 }
 
 exports.updateExpanse = (req, res) => {
@@ -73,8 +78,13 @@ exports.updateExpanse = (req, res) => {
         })    
 }
 
-exports.deleteExpanse = (req, res) => {
+exports.deleteExpanse = async (req, res) => {
     const id = req.params.id;
+
+    const installments = await Installments.findAll({where: {expanse: id}})
+    for (let index = 0; index < installments.length; index++) {
+        Installments.destroy({where: {id: installments[index].dataValues.id}})        
+    }
 
     Expanse.destroy({where: {id: id}})
         .then(() => {
@@ -84,3 +94,55 @@ exports.deleteExpanse = (req, res) => {
             res.status(500).json({error: "error trying to delete expanse"})
         })
 }
+
+//installments 
+
+exports.updateInstallment = (req, res) => {
+    const installmentId = req.params.id;
+  
+    Installments.findByPk(installmentId)
+      .then(installment => {
+        if (!installment) {
+          return res.status(404).json({ error: 'Installment not found' });
+        }
+  
+        installment
+          .update(req.body)
+          .then(updatedInstallment => {
+            res.status(200).json(updatedInstallment);
+          })
+          .catch(error => {
+            console.error(error);
+            res.status(500).json({ error: 'Error updating installment' });
+          });
+      })
+      .catch(error => {
+        console.error(error);
+        res.status(500).json({ error: 'Error retrieving installment' });
+      });
+  };
+
+  exports.deleteInstallment = (req, res) => {
+    const installmentId = req.params.id;
+  
+    Installments.findByPk(installmentId)
+      .then(installment => {
+        if (!installment) {
+          return res.status(404).json({ error: 'Installment not found' });
+        }
+  
+        installment
+          .destroy()
+          .then(() => {
+            res.status(204).json({message: "Installment deleted"}); 
+          })
+          .catch(error => {
+            console.error(error);
+            res.status(500).json({ error: 'Error deleting installment' });
+          });
+      })
+      .catch(error => {
+        console.error(error);
+        res.status(500).json({ error: 'Error retrieving installment' });
+      });
+  };
