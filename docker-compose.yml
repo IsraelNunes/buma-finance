@@ -4,6 +4,8 @@ services:
   db:
     image: mysql:latest
     restart: always
+    volumes:
+      - ./data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: vgcb8iKaZ8wnYYpYWU2G
 
@@ -11,7 +13,7 @@ services:
     image: phpmyadmin
     restart: always
     ports:
-      - 8080:80
+      - 9357:80
     environment:
       PMA_DB: railway
       PMA_HOST: containers-us-west-84.railway.app
