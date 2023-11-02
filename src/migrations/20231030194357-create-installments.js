@@ -2,38 +2,38 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Expanses', {
+    await queryInterface.createTable('Installments', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
-        type: Sequelize.STRING
+      expanse: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: "Expanses",
+            key: "id"
+          },
+        },
       },
-      competence: {
-        type: Sequelize.DATE
+      revenue: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: "Revenues",
+            key: "id"
+          },
+        },
       },
-      gross_value: {
-        type: Sequelize.FLOAT
-      },
-      discount: {
-        type: Sequelize.FLOAT
-      },
-      installments:{
+      installment: {
         type: Sequelize.INTEGER
       },
-      payment_type: {
-        type: Sequelize.STRING
+      date: {
+        type: Sequelize.DATE
       },
-      fees: {
-        type: Sequelize.FLOAT
-      },
-      bank_account: {
-        type: Sequelize.STRING
-      },
-      recurrent: {
+      status: {
         type: Sequelize.BOOLEAN
       },
       createdAt: {
@@ -47,6 +47,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Expanses');
+    await queryInterface.dropTable('Installments');
   }
 };

@@ -65,6 +65,9 @@ module.exports = {
           },
         },
       },
+      installments:{
+        type: Sequelize.INTEGER
+      },
       due_date: {
         type: Sequelize.DATE
       },

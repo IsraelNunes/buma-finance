@@ -22,6 +22,7 @@ db.LegalCustomer = require('./legalcustomers')(sequelize, Sequelize);
 db.PhysicalCustomer = require('./physicalcustomer')(sequelize, Sequelize);
 db.Revenues = require('./revenues')(sequelize, Sequelize);
 db.Expanse = require('./expanse')(sequelize, Sequelize);
+db.Installments = require('./installments')(sequelize, Sequelize);
 
 // Associations
 db.Product_Category.hasMany(db.Product, {foreignKey: "productID"});
@@ -33,7 +34,6 @@ db.Service.belongsTo(db.Service_Category, {foreignKey: "serviceID"});
 db.Roles.hasMany(db.Employees, {foreignKey: "role"});
 db.Employees.belongsTo(db.Roles, {foreignKey: "role"});
 
-//Revenue associations
 
 
 
