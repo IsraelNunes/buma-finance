@@ -20,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     discount: DataTypes.FLOAT,
     installments: DataTypes.INTEGER,
     payment_type: DataTypes.STRING,
+    payment_status: DataTypes.BOOLEAN,
     fees: DataTypes.FLOAT,
     bank_account: DataTypes.STRING,
     recurrent: DataTypes.BOOLEAN
