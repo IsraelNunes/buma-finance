@@ -61,12 +61,13 @@ exports.updateRevenue = (req, res) => {
             if(!revenue) {
                 res.send(404).json({error: "Revenue not found"});
             }
-            Revenues
+            revenue
             .update(req.body)
             .then((updatedRevenue) => {
                 res.status(200).json(updatedRevenue)
             })
             .catch((error) => {
+                console.log(error);
                 res.status(500).json({error: "Error updating Revenue"});
             })
         })
