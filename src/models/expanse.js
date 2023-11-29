@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Expanse.init({
     name: DataTypes.STRING,
-    competence: DataTypes.DATE,
+    due_date: DataTypes.DATE,
     gross_value: DataTypes.FLOAT,
     discount: DataTypes.FLOAT,
     installments: DataTypes.INTEGER,

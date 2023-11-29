@@ -12,7 +12,8 @@ module.exports = {
       name: {
         type: Sequelize.STRING
       },
-      competence: {
+      due_date: {
+        allowNull: false,
         type: Sequelize.DATE
       },
       gross_value: {
