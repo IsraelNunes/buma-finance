@@ -12,7 +12,7 @@ exports.createExpanse = (req, res) => {
               }              
 
             for (let index = 0; index < expanse.installments; index++) {
-                const date = new Date(expanse.competence);
+                const date = new Date(expanse.due_date);
                 const newDate = addMonths(date, index);
                 Installments.create({expanse: expanse.id, installment: expanse.installment, date: newDate, status: expanse.status});
                 
@@ -64,7 +64,7 @@ exports.updateExpanse = (req, res) => {
             if(!expanse) {
                 res.send(404).json({error: "legal expanse not found"});
             }
-            Expanse
+            expanse
             .update(req.body)
             .then((updatedExpanse) => {
                 res.status(200).json(updatedExpanse)

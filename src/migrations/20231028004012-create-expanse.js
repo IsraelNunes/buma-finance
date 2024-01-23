@@ -12,7 +12,8 @@ module.exports = {
       name: {
         type: Sequelize.STRING
       },
-      competence: {
+      due_date: {
+        allowNull: false,
         type: Sequelize.DATE
       },
       gross_value: {
@@ -26,6 +27,9 @@ module.exports = {
       },
       payment_type: {
         type: Sequelize.STRING
+      },
+      payment_status: {
+        type: Sequelize.BOOLEAN
       },
       fees: {
         type: Sequelize.FLOAT

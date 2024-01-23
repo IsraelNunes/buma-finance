@@ -69,6 +69,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       due_date: {
+        allowNull: false,
         type: Sequelize.DATE
       },
       recurrent: {
