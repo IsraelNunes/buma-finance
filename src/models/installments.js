@@ -17,8 +17,8 @@ module.exports = (sequelize, DataTypes) => {
     expanse: DataTypes.INTEGER,
     revenue: DataTypes.INTEGER,
     installment: DataTypes.INTEGER,
-    date: DataTypes.ENUM('open', 'paid', 'overdue'),
-    status: DataTypes.ENUM
+    date: DataTypes.DATE,
+    status: DataTypes.ENUM('open', 'paid', 'overdue')
   }, {
     sequelize,
     modelName: 'Installments',
