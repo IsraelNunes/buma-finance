@@ -9,7 +9,5 @@ router.put('/revenues/:id', revenues.updateRevenue);
 router.delete('/revenues/:id', revenues.deleteRevenue);
 
 //installments 
-router.put('/revenues_installment', revenues.updateInstallment);
-router.put('/revenues_installment', revenues.deleteInstallment);
 
 module.exports = router;

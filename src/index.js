@@ -6,6 +6,7 @@ var app = express();
 app.use(cors());
 const port = 8000;
 
+
 //const router = require('./routes/index')
 //routers import 
 const routerService_Category = require("./router/service.category.router");
@@ -19,6 +20,7 @@ const routerPhysicalCustomer = require('./router/physicalcustomer.router');
 const routerRevenue = require('./router/revenue.router');
 const routerExpanse = require('./router/expanse.router');
 const routerListing = require('./router/listing.router');
+const routerInstallments = require('./router/revenues_installments.router');
 
 
 
@@ -37,6 +39,7 @@ app.use('/', routerPhysicalCustomer);
 app.use('/', routerRevenue);
 app.use('/', routerExpanse);
 app.use('/', routerListing);
+app.use('/', routerInstallments);
 
 db.sequelize.sync().then(() => {
     app.listen(port, () => {

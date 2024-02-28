@@ -1,5 +1,4 @@
 const db = require("../models");
-const installments = require("../models/installments");
 const Revenues = db.Revenues;
 const Installments = db.Installments;
 
@@ -15,7 +14,7 @@ exports.createRevenue = (req, res) => {
             for (let index = 0; index < revenues.installments; index++) {
                 const date = new Date(revenues.due_date);
                 const newDate = addMonths(date, index);
-                Installments.create({revenue: revenues.id, installment: revenues.installment, date: newDate, status: revenues.status});
+                Installments.create({revenue: revenues.id, installment: revenues.installment, date: newDate, status: false});
                 
             }
             res.status(201).json(revenues);
@@ -95,6 +94,17 @@ exports.deleteRevenue = async (req, res) => {
 }
 
 //installments 
+exports.getAllInstallments = (req, res) => {
+  console.log("penes")
+  Installments.findAll()
+      .then((installments) => {
+          res.status(200).json(installments);
+      })
+      .catch((error) => {
+          res.status(500).json({error: 'Error getting Installments'});
+          console.log(error)
+      })
+}
 
 exports.updateInstallment = (req, res) => {
     const installmentId = req.params.id;
@@ -104,7 +114,7 @@ exports.updateInstallment = (req, res) => {
         if (!installment) {
           return res.status(404).json({ error: 'Installment not found' });
         }
-  
+        console.log("penes")
         installment
           .update(req.body)
           .then(updatedInstallment => {
