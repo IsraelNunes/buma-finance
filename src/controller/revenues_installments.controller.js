@@ -4,7 +4,6 @@ const Installments = db.Installments;
 
 //installments 
 exports.getAllInstallments = (req, res) => {
-    console.log("penes")
     Installments.findAll()
         .then((installments) => {
             res.status(200).json(installments);
@@ -23,7 +22,6 @@ exports.getAllInstallments = (req, res) => {
           if (!installment) {
             return res.status(404).json({ error: 'Installment not found' });
           }
-          console.log("penes")
           installment
             .update(req.body)
             .then(updatedInstallment => {

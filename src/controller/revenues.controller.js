@@ -52,27 +52,38 @@ exports.getRevenuesByID = async (req, res) => {
         })
 }
 
-exports.updateRevenue = (req, res) => {
+exports.updateRevenue = async (req, res) => {
     const id = req.params.id;
 
-    Revenues.findByPk(id)
-        .then((revenue) => {
-            if(!revenue) {
-                res.send(404).json({error: "Revenue not found"});
-            }
-            revenue
-            .update(req.body)
-            .then((updatedRevenue) => {
-                res.status(200).json(updatedRevenue)
-            })
-            .catch((error) => {
-                console.log(error);
-                res.status(500).json({error: "Error updating Revenue"});
-            })
-        })
-        .catch((error) => {
-            res.status(500).json({error: "Error trying to retrive Revenue"});
-        })    
+    try {
+        const revenue = await Revenues.findByPk(id);
+        const installments = await Installments.findAll({where: {revenue: id}});
+        
+        if (!revenue) {
+            return res.status(404).json({ error: "Revenue not found" });
+        }
+        
+        const updatedRevenue = await revenue.update(req.body);
+        // if (updatedRevenue.payment_status == paid) {
+        //     for (let index = 0; index < installments.length; index++) {
+        //         if(installments[0].dataValues.status == paid) {
+        //             console.log(index);
+        //             continue
+        //         }
+        //         else{
+        //             updatedRevenue.payment_status = 'open'
+        //         }
+                
+        //     }
+        // }
+        console.log(updatedRevenue);
+        console.log(Installments[0].dataValues.status);
+        return res.status(200).json(updatedRevenue);
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ error: "Error updating Revenue" });
+    }
+    
 }
 
 exports.deleteRevenue = async (req, res) => {
@@ -95,7 +106,6 @@ exports.deleteRevenue = async (req, res) => {
 
 //installments 
 exports.getAllInstallments = (req, res) => {
-  console.log("penes")
   Installments.findAll()
       .then((installments) => {
           res.status(200).json(installments);
@@ -114,7 +124,6 @@ exports.updateInstallment = (req, res) => {
         if (!installment) {
           return res.status(404).json({ error: 'Installment not found' });
         }
-        console.log("penes")
         installment
           .update(req.body)
           .then(updatedInstallment => {
