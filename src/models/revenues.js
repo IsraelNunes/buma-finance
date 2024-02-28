@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     price: DataTypes.FLOAT,
     quantity: DataTypes.INTEGER,
     discount: DataTypes.FLOAT,
-    payment_status: DataTypes.BOOLEAN,
+    payment_status: DataTypes.ENUM,
     legalcustomer: DataTypes.INTEGER,
     physicalcustomer: DataTypes.INTEGER,
     installments: DataTypes.INTEGER,

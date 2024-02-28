@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     revenue: DataTypes.INTEGER,
     installment: DataTypes.INTEGER,
     date: DataTypes.DATE,
-    status: DataTypes.BOOLEAN
+    status: DataTypes.ENUM
   }, {
     sequelize,
     modelName: 'Installments',
