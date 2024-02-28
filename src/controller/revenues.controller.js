@@ -64,20 +64,18 @@ exports.updateRevenue = async (req, res) => {
         }
         
         const updatedRevenue = await revenue.update(req.body);
-        // if (updatedRevenue.payment_status == paid) {
-        //     for (let index = 0; index < installments.length; index++) {
-        //         if(installments[0].dataValues.status == paid) {
-        //             console.log(index);
-        //             continue
-        //         }
-        //         else{
-        //             updatedRevenue.payment_status = 'open'
-        //         }
-                
-        //     }
-        // }
-        console.log(updatedRevenue);
-        console.log(Installments[0].dataValues.status);
+        if (updatedRevenue.payment_status == 'paid') {
+            for (let index = 0; index < installments.length; index++) {
+                if (installments[index].dataValues.status == 'paid') {     
+                    console.log(installments[index].dataValues.status);
+                    continue;               
+                }
+                else{
+                    updatedRevenue.payment_status = 'open'
+                    return res.status(405).json(updatedRevenue);
+                }                
+            }
+        }
         return res.status(200).json(updatedRevenue);
     } catch (error) {
         console.log(error);
@@ -106,6 +104,7 @@ exports.deleteRevenue = async (req, res) => {
 
 //installments 
 exports.getAllInstallments = (req, res) => {
+  console.log("penes")
   Installments.findAll()
       .then((installments) => {
           res.status(200).json(installments);
@@ -124,6 +123,7 @@ exports.updateInstallment = (req, res) => {
         if (!installment) {
           return res.status(404).json({ error: 'Installment not found' });
         }
+        console.log("penes")
         installment
           .update(req.body)
           .then(updatedInstallment => {
