@@ -57,25 +57,13 @@ exports.updateRevenue = async (req, res) => {
 
     try {
         const revenue = await Revenues.findByPk(id);
-        const installments = await Installments.findAll({where: {revenue: id}});
         
         if (!revenue) {
             return res.status(404).json({ error: "Revenue not found" });
         }
         
         const updatedRevenue = await revenue.update(req.body);
-        if (updatedRevenue.payment_status == 'paid') {
-            for (let index = 0; index < installments.length; index++) {
-                if (installments[index].dataValues.status == 'paid') {     
-                    console.log(installments[index].dataValues.status);
-                    continue;               
-                }
-                else{
-                    updatedRevenue.payment_status = 'open'
-                    return res.status(405).json(updatedRevenue);
-                }                
-            }
-        }
+        console.log(req.body)
         return res.status(200).json(updatedRevenue);
     } catch (error) {
         console.log(error);
