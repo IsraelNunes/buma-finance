@@ -56,27 +56,61 @@ exports.findOneExpanse = async (req, res) => {
         })
 }
 
-exports.updateExpanse = (req, res) => {
-    const id = req.params.id;
-
-    Expanse.findByPk(id)
-        .then((expanse) => {
-            if(!expanse) {
-                res.send(404).json({error: "legal expanse not found"});
+exports.updateExpanse = async (req, res) => {
+  try {
+      const id = req.params.id;
+      
+      const expanse = await Expanse.findByPk(id);
+      const installments = await Installments.findAll({where: {expanse: id}});
+      
+      if (!expanse) {
+          return res.status(404).json({error: "Legal expanse not found"});
+      }
+      
+      const updatedExpanse = await expanse.update(req.body);
+      
+      if (req.body.payment_status == 'paid') {
+        for (const installment of installments){
+            if (installment.dataValues.status == 'paid') {
+                console.log("vose caiu aq");
+            } 
+            if(installment.dataValues.status == 'open' || installment.dataValues.status == 'overdue') {
+                return res.status(405).json({ error: "Error updating Expanse, due to open or overdue installment" });
             }
-            expanse
-            .update(req.body)
-            .then((updatedExpanse) => {
-                res.status(200).json(updatedExpanse)
-            })
-            .catch((error) => {
-                res.status(500).json({error: "Error updating expanse"});
-            })
-        })
-        .catch((error) => {
-            res.status(500).json({error: "Error trying to retrive expanse"});
-        })    
-}
+        }
+
+      } else {
+        return res.status(200).json(updatedExpanse);
+      }
+      
+  } catch (error) {
+      console.log(error);
+      return res.status(500).json({error: "Error updating or retrieving expanse"});
+  }
+};
+
+  
+// (req, res) => {
+//     const id = req.params.id;
+
+//     Expanse.findByPk(id)
+//         .then((expanse) => {
+//             if(!expanse) {
+//                 res.send(404).json({error: "legal expanse not found"});
+//             }
+//             expanse
+//             .update(req.body)
+//             .then((updatedExpanse) => {
+//                 res.status(200).json(updatedExpanse)
+//             })
+//             .catch((error) => {
+//                 res.status(500).json({error: "Error updating expanse"});
+//             })
+//         })
+//         .catch((error) => {
+//             res.status(500).json({error: "Error trying to retrive expanse"});
+//         })    
+// }
 
 exports.deleteExpanse = async (req, res) => {
     const id = req.params.id;

@@ -1,3 +1,4 @@
+const { or } = require("sequelize");
 const db = require("../models");
 const Revenues = db.Revenues;
 const Installments = db.Installments;
@@ -62,21 +63,23 @@ exports.updateRevenue = async (req, res) => {
         if (!revenue) {
             return res.status(404).json({ error: "Revenue not found" });
         }
-        
         const updatedRevenue = await revenue.update(req.body);
-        if (updatedRevenue.payment_status == 'paid') {
-            for (let index = 0; index < installments.length; index++) {
-                if (installments[index].dataValues.status == 'paid') {     
-                    console.log(installments[index].dataValues.status);
-                    continue;               
+
+        // verifying if payments satus match installments for paid status
+        if (req.body.payment_status == 'paid') {
+            for (const installment of installments){
+                if (installment.dataValues.status == 'paid') {
+                    console.log("vose caiu aq");
+                } 
+                if(installment.dataValues.status == 'open' || installment.dataValues.status == 'overdue') {
+                    return res.status(405).json({ error: "Error updating Revenue, due open or overdue installment" });
                 }
-                else{
-                    updatedRevenue.payment_status = 'open'
-                    return res.status(405).json(updatedRevenue);
-                }                
             }
-        }
-        return res.status(200).json(updatedRevenue);
+
+        } else {
+            return res.status(200).json(updatedRevenue);
+
+        } 
     } catch (error) {
         console.log(error);
         return res.status(500).json({ error: "Error updating Revenue" });
