@@ -71,9 +71,7 @@ exports.updateExpanse = async (req, res) => {
       
       if (req.body.payment_status == 'paid') {
         for (const installment of installments){
-            if (installment.dataValues.status == 'paid') {
-                console.log("vose caiu aq");
-            } 
+
             if(installment.dataValues.status == 'open' || installment.dataValues.status == 'overdue') {
                 return res.status(405).json({ error: "Error updating Expanse, due to open or overdue installment" });
             }

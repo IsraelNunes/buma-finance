@@ -63,7 +63,7 @@ exports.updateRevenue = async (req, res) => {
         if (!revenue) {
             return res.status(404).json({ error: "Revenue not found" });
         }
-        const updatedRevenue = await revenue.update(req.body);
+
 
         // verifying if payments satus match installments for paid status
         if (req.body.payment_status == 'paid') {
@@ -77,6 +77,7 @@ exports.updateRevenue = async (req, res) => {
             }
 
         } else {
+            const updatedRevenue = await revenue.update(req.body);
             return res.status(200).json(updatedRevenue);
 
         } 
@@ -126,7 +127,6 @@ exports.updateInstallment = (req, res) => {
         if (!installment) {
           return res.status(404).json({ error: 'Installment not found' });
         }
-        console.log("penes")
         installment
           .update(req.body)
           .then(updatedInstallment => {
