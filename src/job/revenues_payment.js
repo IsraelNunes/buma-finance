@@ -22,6 +22,9 @@ function findID(revenues) {
 }
 
 function paidVerification(payment_value){
+    if (payment_value === 'true'){
+        console.log("All payments are done")
+    }
 
 }
 
@@ -32,10 +35,21 @@ function inspectRevenue(ids){
             
            const revenue = Revenues.findByPk(ids[0])
                 .then((revenue) => {
-                    console.log(revenue.dataValues)
                     const payment_value = revenue.dataValues.payment_status;
                     const installment = Installments.findAll({where: {revenue: ids[0]}})
-                    console.log(installment)
+                    let status =  {payment_value, installment}
+                    return Installments.findAll({where: {revenue: ids[0]}})
+                    
+                })
+                .then((status) => {
+                    console.log(status)
+                    // for (index in installments){
+                    //     console.log(installments[index].dataValues.status)
+                    //     console.log(installments[index].dataValues.date)
+                    // }
+
+                    
+                    // const dataValues = installments.map(installments => installments.dataValues.status)
                 })
 
         // }
