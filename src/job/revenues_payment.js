@@ -12,10 +12,14 @@ app.use(bodyParser.json);
 const Revenues = db.Revenues;
 const Installments = db.Installments;
 
-function findID(revenues) {
+
+
+async function findID(revenues) {
     id = []
-    for(index in revenues){
-          id.push(revenues[index].dataValues.id)
+    let count = 0
+     for await (index of revenues){
+        id.push(revenues[count].dataValues.id)
+        count++
     }
     return id;
 
@@ -28,21 +32,34 @@ function paidVerification(payment_value){
 
 }
 
-function inspectRevenue(ids){
-        
+async function inspectRevenue(ids){
+        // for await (id of ids) {
+            const revenue = await Revenues.findByPk(1);
+            const payment_status = await revenue.dataValues.payment_status;
+            const installment = await Installments.findAll({where: {revenue: 1}})
+            for (index of installment){
+                if (index.dataValues.status !== payment_status) {
+                    console.log("open mama")
+                }
+            }
+        //     console.log(revenue.dataValues)
+        // }
 
         // for(id in ids) {
-            
-           const revenue = Revenues.findByPk(ids[0])
-                .then((revenue) => {
-                    const payment_value = revenue.dataValues.payment_status;
-                    const installment = Installments.findAll({where: {revenue: ids[0]}})
-                    let status =  {payment_value, installment}
-                    return Installments.findAll({where: {revenue: ids[0]}})
+        
+        
+
+                         
+        //    const revenue = Revenues.findByPk(ids[0])
+        //         .then((revenue) => {
+        //             const payment_value = revenue.dataValues.payment_status;
+        //             const installment = Installments.findAll({where: {revenue: ids[0]}})
+        //             let status =  {payment_value, installment}
+        //             return Installments.findAll({where: {revenue: ids[0]}})
                     
-                })
-                .then((status) => {
-                    console.log(status)
+        //         })
+        //         .then((status) => {
+        //             console.log(status)
                     // for (index in installments){
                     //     console.log(installments[index].dataValues.status)
                     //     console.log(installments[index].dataValues.date)
@@ -50,21 +67,24 @@ function inspectRevenue(ids){
 
                     
                     // const dataValues = installments.map(installments => installments.dataValues.status)
-                })
+                }
 
         // }
-}
 
 
 
-function getRevenue() {
-    const result = Revenues.findAll()
-        .then((revenues) =>{
-            return findID(revenues)
-        })
-        .then((ids) => {
-            inspectRevenue(ids)
-        })
+async function getRevenue() {
+    const revenues = await Revenues.findAll();
+    // const print = await printar(revenues);    
+    const ids = await findID(revenues);
+    const update = await inspectRevenue(ids);
+
+        // .then((revenues) =>{
+        //     return findID(revenues)
+        // })
+        // .then((ids) => {
+        //     inspectRevenue(ids)
+        // })
    
 }
 
