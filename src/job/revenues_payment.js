@@ -4,6 +4,7 @@ const db = require('../models');
 var cors = require('cors');
 const revenues = require('../models/revenues');
 const { where } = require('sequelize');
+const { range } = require('express/lib/request');
 var app = express();
 app.use(cors());
 const port = 5000;
@@ -12,6 +13,8 @@ app.use(bodyParser.json);
 const Revenues = db.Revenues;
 const Installments = db.Installments;
 
+let currentDate = new Date().toJSON().slice(0, 10);
+currentDate = new Date(currentDate);
 
 
 async function findID(revenues) {
@@ -25,21 +28,26 @@ async function findID(revenues) {
 
 }
 
-function paidVerification(payment_value){
-    if (payment_value === 'true'){
-        console.log("All payments are done")
-    }
-
-}
 
 async function inspectRevenue(ids){
         // for await (id of ids) {
             const revenue = await Revenues.findByPk(1);
             const payment_status = await revenue.dataValues.payment_status;
             const installment = await Installments.findAll({where: {revenue: 1}})
+            let count = 0, paid_installments = 0;
             for (index of installment){
+                count++;
+                console.log(count)
                 if (index.dataValues.status !== payment_status) {
-                    console.log("open mama")
+                        if(index.dataValues.status === "paid"){
+                            paid_installments++;
+                        }
+                    }
+
+                    
+                }
+                if (count === paid_installments){
+                    console.log("ta tudo certo chef")
                 }
             }
         //     console.log(revenue.dataValues)
@@ -67,7 +75,7 @@ async function inspectRevenue(ids){
 
                     
                     // const dataValues = installments.map(installments => installments.dataValues.status)
-                }
+                
 
         // }
 

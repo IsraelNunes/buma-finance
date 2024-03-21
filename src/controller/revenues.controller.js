@@ -53,39 +53,27 @@ exports.getRevenuesByID = async (req, res) => {
         })
 }
 
-exports.updateRevenue = async (req, res) => {
+exports.updateRevenue = (req, res) => {
     const id = req.params.id;
 
-    try {
-        const revenue = await Revenues.findByPk(id);
-        const installments = await Installments.findAll({where: {revenue: id}});
-        
-        if (!revenue) {
-            return res.status(404).json({ error: "Revenue not found" });
-        }
-
-
-        // verifying if payments satus match installments for paid status
-        if (req.body.payment_status == 'paid') {
-            for (const installment of installments){
-                if (installment.dataValues.status == 'paid') {
-                    console.log("vose caiu aq");
-                } 
-                if(installment.dataValues.status == 'open' || installment.dataValues.status == 'overdue') {
-                    return res.status(405).json({ error: "Error updating Revenue, due open or overdue installment" });
-                }
+    Revenues.findByPk(id)
+        .then((revenue) => {
+            if(!revenue) {
+                res.send(404).json({error: "Revenue not found"});
             }
-
-        } else {
-            const updatedRevenue = await revenue.update(req.body);
-            return res.status(200).json(updatedRevenue);
-
-        } 
-    } catch (error) {
-        console.log(error);
-        return res.status(500).json({ error: "Error updating Revenue" });
-    }
-    
+            revenue
+            .update(req.body)
+            .then((updatedRevenue) => {
+                res.status(200).json(updatedRevenue)
+            })
+            .catch((error) => {
+                console.log(error);
+                res.status(500).json({error: "Error updating Revenue"});
+            })
+        })
+        .catch((error) => {
+            res.status(500).json({error: "Error trying to retrive Revenue"});
+        })    
 }
 
 exports.deleteRevenue = async (req, res) => {
