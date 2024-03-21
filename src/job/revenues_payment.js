@@ -3,8 +3,6 @@ const bodyParser = require('body-parser');
 const db = require('../models');
 var cors = require('cors');
 const revenues = require('../models/revenues');
-const { where } = require('sequelize');
-const { range } = require('express/lib/request');
 var app = express();
 app.use(cors());
 const port = 5000;
@@ -47,7 +45,7 @@ async function inspectRevenue(ids){
                     
                 }
                 if (count === paid_installments){
-                    console.log("ta tudo certo chef")
+                    await revenue.update({payment_status: "paid"});
                 }
             }
         //     console.log(revenue.dataValues)
